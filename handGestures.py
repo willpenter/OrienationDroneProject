@@ -84,27 +84,27 @@ while True:
                 # Up
                 if vertical_diff < -0.1:
                     direction = "Up"
-                    tello.move_up(20)
+                    tello.send_rc_control(0, 0, 15, 0)
                 #  Down
                 elif vertical_diff > 0.1:
                     direction = "Down"
-                    tello.move_down(20)
+                    tello.send_rc_control(0, 0, -15, 0)
                 # RIght
                 elif horizontal_diff > 0.1:
                     direction = "Right"
-                    tello.move_right(20)
+                    tello.send_rc_control(15, 0, 0, 0)
                 # Left
                 elif horizontal_diff < -0.1:
                     direction = "Left"
-                    tello.move_left(20)
+                    tello.send_rc_control(-15, 0, 0, 0)
                 # Forward
                 elif index_y < avg_y - 0.1:
                     direction = "Forward"
-                    tello.move_foward(20)
+                    tello.send_rc_control(0, 15, 0, 0)
                 # Backward
                 elif index_y > avg_y + 0.1:
                     direction = "Backward"
-                    tello.move_back(20)          
+                    tello.send_rc_control(0, -15, 0, 0)        
                 # Rotate
                 else:
                     direction = "No Direction"
