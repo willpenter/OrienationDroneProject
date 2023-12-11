@@ -1,0 +1,4 @@
+djitellopy
+pyaudio
+vosk
+SpeechRecognition
