@@ -1,7 +1,13 @@
 import cv2
 import mediapipe as mp
 import math
+from djitellopy import Tello
 
+tello = Tello()
+tello.connect()
+tello.streamon()  # Start video stream
+tello.takeoff()
+tello.send_rc_control(0, 0, 0, 0)
 # Initialize MediaPipe Hands model
 hands = mp.solutions.hands.Hands(max_num_hands=1)
 pose = mp.solutions.pose.Pose()
