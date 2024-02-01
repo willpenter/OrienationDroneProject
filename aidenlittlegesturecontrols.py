@@ -132,7 +132,7 @@ def angle_between_lines(line1, line2):
     return angle_degrees
 
 # Capture video from webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('udp://0.0.0.0:11111')
 
 while cap.isOpened():
     ret, frame = cap.read()
