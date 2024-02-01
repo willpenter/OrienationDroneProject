@@ -106,6 +106,7 @@ def detect_gestures(frame):
             else:
                 side = 2
 
+
     return frame
 
 def angle_between_lines(line1, line2):
