@@ -161,5 +161,11 @@ while cap.isOpened():
         break
 
 # Release the capture
+
+
+tello.send_rc_control(0, 0, 0, 0)
+tello.land()
+tello.streamoff()  # Stop video stream
+tello.disconnect()
 cap.release()
 cv2.destroyAllWindows()
