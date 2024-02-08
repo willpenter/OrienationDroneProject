@@ -1,6 +1,7 @@
 import os
 import json
 import pyaudio
+from djitellopy import Tello
 from vosk import Model, KaldiRecognizer
 from droneControl import DroneController
 
@@ -15,8 +16,8 @@ def main():
     voiceStream = pAud.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=8192)
     voiceStream.start_stream()
 
-    controller = DroneController()
-    controller.connect()
+    tello = Tello()
+    tello.connect()
 
     try:
         while True:
@@ -30,16 +31,16 @@ def main():
                 print(f"Result from recognized: {recognizedText}")
 
                 if recognizedText == "take off":
-                    controller.takeoff()
+                    tello.takeoff()
                 elif recognizedText == "land":
-                    controller.land()
+                    tello.land()
                 # more voice commands here
 
     except KeyboardInterrupt:
         print("\nExiting...")
         
     finally:
-        controller.land()
+        tello.land()
         voiceStream.stop_stream()
         voiceStream.close()
         pAud.terminate()
