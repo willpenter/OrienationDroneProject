@@ -1,12 +1,19 @@
 import cv2
 import mediapipe as mp
 import math
+from djitellopy import Tello
 
 # Initialize MediaPipe Hands model
 hands = mp.solutions.hands.Hands(max_num_hands=1)
 pose = mp.solutions.pose.Pose()
 side = 0
 last_side = 0
+
+tello = Tello()
+tello.connect()
+tello.streamon()  # Start video stream
+tello.takeoff()
+tello.send_rc_control(0, 0, 0, 0)
 
 # Function to detect hand gestures
 def detect_gestures(frame):
@@ -133,7 +140,11 @@ def angle_between_lines(line1, line2):
     return angle_degrees
 
 # Capture video from webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture('udp://0.0.0.0:11111')
+width = 300
+height = 280
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
 while cap.isOpened():
     ret, frame = cap.read()
@@ -156,5 +167,9 @@ while cap.isOpened():
         break
 
 # Release the capture
+tello.send_rc_control(0, 0, 0, 0)
+tello.land()
+tello.streamoff()  # Stop video stream
+tello.disconnect()
 cap.release()
 cv2.destroyAllWindows()
